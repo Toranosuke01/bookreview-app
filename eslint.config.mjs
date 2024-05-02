@@ -8,7 +8,7 @@ import prettier from "eslint-config-prettier/prettier";
 const Config = [
   {
     prettier,
-    files: ["**/*.{js,ts,tsx}"],
+    files: ["**/*.{js,jsx,ts,tsx}"],
     ...reactRecommended,
     plugins: {
       react,

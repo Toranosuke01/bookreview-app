@@ -1,1 +1,3 @@
-console.log("Hello from hello.js");
+export const Hello = () => {
+  return <div>Hello, World!</div>;
+}
