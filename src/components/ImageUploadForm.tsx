@@ -85,7 +85,7 @@ export const ImageUploadForm: React.FC<ImageUploadFormProps>= ({ page, setPage }
 
   const handleSkip = () => {
     dispatch(setIcon());
-    setCookie("iconUrl", "example.com");
+    setCookie("iconUrl", "example.jpg");
     navigate("/");
   }
 

@@ -7,11 +7,17 @@ export interface RootState {
   auth: AuthState;
 }
 
-export type FormValues = {
+export type SignUpFormValues = {
   name: string;
   email: string;
   password: string;
 };
+
+export type LogInFormValues = {
+  email: string;
+  password: string;
+};
+
 
 export type ImageUploadFormProps = {
   page: number;

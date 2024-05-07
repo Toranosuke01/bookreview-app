@@ -1,24 +1,20 @@
 import axios, { AxiosError } from "axios";
 import { env } from "../const";
-import { useState } from "react";
 import { useCookies } from "react-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
 import { FieldErrors, useForm } from "react-hook-form";
 import { Button, TextField } from "@mui/material";
-import { ImageUploadForm } from "./ImageUploadForm";
-import { SignUpFormValues, RootState, ErrorResponse } from "../types/types";
-import { signIn } from "../authSlice";
+import { LogInFormValues, RootState, ErrorResponse } from "../types/types";
+import { signIn, setIcon } from "../authSlice";
 
-export const SignUpForm = () => {
-  const [page, setPage] = useState(1);
+export const LogInForm = () => {
   const dispatch = useDispatch();
   const [, setCookie] = useCookies(["token", "iconUrl"]);
   const auth = useSelector((state: RootState) => state.auth.isSignIn);
   const iconSubmitted = useSelector((state: RootState) => state.auth.iconSubmitted);
 
   const defaultValues = {
-    name: "",
     email: "",
     password: "",
   };
@@ -26,14 +22,29 @@ export const SignUpForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm({
      defaultValues 
     });
-  const onsubmit = async (data: SignUpFormValues) => {
+
+  const onsubmit = async (data: LogInFormValues) => {
     try {
-      const response = await axios.post(`${env.url}/users`, data);
-      console.log(response);
-      const token = response.data.token;
+      const signinResponse = await axios.post(`${env.url}/signin`, data);
+      console.log(signinResponse);
+      const token = signinResponse.data.token;
       dispatch(signIn());
       setCookie("token", token);
-      setPage(2);
+
+      const userResponse = await axios.get(`${env.url}/users`, {
+        headers: {
+          authorization: `Bearer ${token}`
+        }
+      });
+      console.log(userResponse);
+      const iconUrl = userResponse.data.iconUrl;
+      if (iconUrl) {
+        dispatch(setIcon());
+        setCookie("iconUrl", iconUrl);
+      } else {
+        dispatch(setIcon());
+        setCookie("iconUrl", "example.jpg");
+      }
     } catch (error) {
       const axiosError = error as AxiosError<ErrorResponse>;
       if (axiosError.response) {
@@ -43,39 +54,22 @@ export const SignUpForm = () => {
     };
   };
   console.log(auth, iconSubmitted);
-  if (auth && iconSubmitted) {
+  if (auth) {
     return <Navigate to="/" replace={true} />;
-  } else if (auth && !iconSubmitted) {
-    return <ImageUploadForm page={page} setPage={setPage} />;
   }
 
-  const onerror = (err: FieldErrors<SignUpFormValues>) => {
+  const onerror = (err: FieldErrors<LogInFormValues>) => {
     console.log(err);
   }
 
   return (
     <>
-      {page === 1 && (
         <>
           <form 
             onSubmit={handleSubmit(onsubmit, onerror)} 
             noValidate
             className="flex flex-col items-center justify-center h-screen">
-            <h1 className="text-center text-xl">新規登録</h1>
-            <div className="mb-2">
-              <TextField label="名前" margin="normal"
-                {...register("name", {
-                  required: "名前は必須入力です。",
-                  maxLength: {
-                    value: 20,
-                    message: "名前は20文字以内で入力してください。",
-                  }
-                })}
-                error={"name" in errors}
-                helperText={errors.name?.message} 
-                sx={{ width: '400px' }}
-              />
-            </div>
+            <h1 className="text-center text-xl">ログイン</h1>
             <div className="mb-2">
               <TextField type="email" label="メールアドレス" margin="normal"
                 {...register("email", {
@@ -109,22 +103,16 @@ export const SignUpForm = () => {
                 type="submit"
                 sx={{ width: '400px' }}
               >
-                登録
+                ログイン
               </Button>
             </div>
             <Link 
-              to="/login"
+              to="/signup"
               className="hover:text-blue-700 hover:underline text-center"
             >
-              ログインはこちら
+              新規登録はこちら
             </Link>
           </form>
         </>
-      )} 
-      {page === 2 && (
-        <>
-          <ImageUploadForm page={page} setPage={setPage}/>
-        </>
-      )};
     </>
   )};
