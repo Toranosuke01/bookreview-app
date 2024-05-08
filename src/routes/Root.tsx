@@ -27,9 +27,7 @@ const Root = () => {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/" element={
-          <ProtectedRoute>
-            <Home />
-          </ProtectedRoute>
+          <Home />
         } />
         <Route path="*" element={<NotFound />} />
       </>
