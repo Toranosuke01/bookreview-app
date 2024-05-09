@@ -10,6 +10,7 @@ import { Navigate } from "react-router-dom";
 import { RootState } from "../types/types";
 import { NotFound } from "../pages/NotFound";
 import { Home } from "../pages/Home";
+import { Profile } from "../pages/Profile";
 
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -26,6 +27,11 @@ const Root = () => {
       <>
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<LogIn />} />
+        <Route path="/profile" element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        } />
         <Route path="/" element={
           <Home />
         } />

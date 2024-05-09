@@ -18,6 +18,10 @@ export type LogInFormValues = {
   password: string;
 };
 
+export type ProfileFormValues = {
+  name: string;
+};
+
 
 export type ImageUploadFormProps = {
   page: number;
