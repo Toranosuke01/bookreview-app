@@ -6,7 +6,7 @@ import { env } from "../const";
 import { Paper, Typography, Box } from "@mui/material";
 
 
-export const ReviewDetail = () => {
+const ReviewDetail = () => {
   const { reviewId } = useParams();
   const [cookie] = useCookies(["token"]);
   const [detail, setDetail] = useState({
@@ -116,3 +116,5 @@ export const ReviewDetail = () => {
     </>
   );
 };
+
+export default ReviewDetail;

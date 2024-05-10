@@ -1,9 +1,12 @@
-import { ReviewDetail } from '../components/ReviewDetail';
+import React, { Suspense } from 'react';
+const ReviewDetail = React.lazy(() => import('../components/ReviewDetail'));
 
 export const Review = () => {
   return (
     <>
-      <ReviewDetail />
+      <Suspense fallback={<p>loading...</p>}>
+        <ReviewDetail />
+      </Suspense>
     </>
   );
 };
