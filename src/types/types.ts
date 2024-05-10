@@ -1,3 +1,5 @@
+import { AlertColor } from "@mui/material/Alert";
+
 interface AuthState {
   isSignIn: boolean;
   iconSubmitted: boolean;
@@ -53,3 +55,8 @@ export type Book = {
   review: "string",
   reviewer: "string"
 };
+
+export interface AlertState {
+  severity?: AlertColor;
+  message: string;
+}

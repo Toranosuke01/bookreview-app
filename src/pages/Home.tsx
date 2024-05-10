@@ -5,12 +5,13 @@ import { env } from "../const";
 import { BooksPagination } from "../components/Pagination";
 import { useCookies } from "react-cookie";
 import { Header } from "../components/Header";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Home = () => {
   const [offset, setOffset] = useState(0)
   const [books, setBooks] = useState<Book[]>([]);
   const [cookies] = useCookies(["token"]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -42,6 +43,7 @@ export const Home = () => {
               <div
                 key={book.id}
                 className={`border border-gray-200 ${index % 2 === 0 ? "bg-white" : "bg-gray-50"} hover:bg-gray-100 w-1/2 p-3 pl-4 cursor-pointer`}
+                onClick={() => {navigate(`/detail/${book.id}`)}}
               >
                 {book.title}
               </div>

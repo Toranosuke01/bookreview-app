@@ -12,6 +12,7 @@ import { NotFound } from "../pages/NotFound";
 import { Home } from "../pages/Home";
 import { Profile } from "../pages/Profile";
 import { CreateReview } from "../pages/CreateReview";
+import { Review } from "../pages/Review";
 
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -36,6 +37,11 @@ const Root = () => {
         <Route path="/new" element={
           <ProtectedRoute>
             <CreateReview />
+          </ProtectedRoute>
+        } />
+        <Route path="/detail/:reviewId" element={
+          <ProtectedRoute>
+            <Review />
           </ProtectedRoute>
         } />
         <Route path="/" element={
