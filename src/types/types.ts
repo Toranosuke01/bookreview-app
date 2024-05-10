@@ -36,6 +36,13 @@ export type ImageUploadFormProps = {
   setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
+export type EditReviewFormValues = {
+  title: string;
+  url: string;
+  detail: string;
+  review: string;
+};
+
 export type BooksPaginationProps = {
   offset: number;
   setOffset: React.Dispatch<React.SetStateAction<number>>;
@@ -60,3 +67,5 @@ export interface AlertState {
   severity?: AlertColor;
   message: string;
 }
+
+

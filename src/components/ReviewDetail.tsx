@@ -107,7 +107,7 @@ const ReviewDetail = () => {
       </div>
       { detail.isMine &&
       (<Link
-        to="/new"
+        to={`/edit/${detail.id}`}
         className="absolute top-24 right-20 text-white bg-blue-500 p-2 m-2 rounded hover:bg-blue-700"
       >
         レビュー編集

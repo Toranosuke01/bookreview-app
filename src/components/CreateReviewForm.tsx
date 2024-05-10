@@ -100,15 +100,15 @@ export const CreateReviewForm = () => {
             </div>
             <div className="mb-2">
               <TextField 
-                label="レビュー" 
+                label="書評" 
                 margin="normal"
                 multiline
                 rows={4} 
                 {...register("review", {
-                  required: "レビューは必須入力です。",
+                  required: "書評は必須入力です。",
                   minLength: {
                     value: 10,
-                    message: "レビューは10文字以上で入力してください。",
+                    message: "書評は10文字以上で入力してください。",
                   }
                 })}
                 error={"review" in errors}
