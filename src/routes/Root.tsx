@@ -11,6 +11,7 @@ import { RootState } from "../types/types";
 import { NotFound } from "../pages/NotFound";
 import { Home } from "../pages/Home";
 import { Profile } from "../pages/Profile";
+import { CreateReview } from "../pages/CreateReview";
 
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -30,6 +31,11 @@ const Root = () => {
         <Route path="/profile" element={
           <ProtectedRoute>
             <Profile />
+          </ProtectedRoute>
+        } />
+        <Route path="/new" element={
+          <ProtectedRoute>
+            <CreateReview />
           </ProtectedRoute>
         } />
         <Route path="/" element={

@@ -22,6 +22,12 @@ export type ProfileFormValues = {
   name: string;
 };
 
+export type CreateReviewFormValues = {
+  title: string;
+  url: string;
+  detail: string;
+  review: string;
+};
 
 export type ImageUploadFormProps = {
   page: number;

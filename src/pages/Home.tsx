@@ -5,6 +5,7 @@ import { env } from "../const";
 import { BooksPagination } from "../components/Pagination";
 import { useCookies } from "react-cookie";
 import { Header } from "../components/Header";
+import { Link } from "react-router-dom";
 
 export const Home = () => {
   const [offset, setOffset] = useState(0)
@@ -53,6 +54,14 @@ export const Home = () => {
           <div>書籍はありません</div>
         )}
       </div>
+      {cookies.token && (
+      <Link
+        to="/new"
+        className="absolute top-24 right-20 text-white bg-blue-500 p-2 m-2 rounded hover:bg-blue-700"
+      >
+        新規レビュー投稿
+      </Link>
+      )}
     </>
   );
   
